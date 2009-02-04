@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>es.uji</groupId>
+  <artifactId>generators</artifactId>
+  <version>0.1</version>
+  <packaging>jar</packaging>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jvnet.jaxb2.maven2</groupId>
+        <artifactId>maven-jaxb2-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <generatePackage>${package}</generatePackage>
+          <verbose>true</verbose>
+          <schemaDirectory>src/main/resources</schemaDirectory>
+          <removeOldOutput>false</removeOldOutput>
+          <forceRegenerate>true</forceRegenerate>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven2-repository.dev.java.net</id>
+      <url>http://download.java.net/maven/2</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>maven-repository.dev.java.net</id>
+      <name>Java.net Maven 1 Repository (legacy)</name>
+      <url>http://download.java.net/maven/1</url>
+      <layout>legacy</layout>
+    </pluginRepository>
+  </pluginRepositories>
+  
+  <dependencies>
+    <dependency>
+      <groupId>javax.xml</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.1.9</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.xml</groupId>
+      <artifactId>jaxb-xjc</artifactId>
+      <version>2.1.9</version>
+    </dependency>
+  </dependencies>
+</project>

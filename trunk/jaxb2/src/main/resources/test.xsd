@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="areatematica" type="xs:string"/>
+  <xs:element name="denominacio">
+    <xs:complexType mixed="true">
+      <xs:attribute name="llengua" use="required"/>
+      <xs:attribute name="tipus" use="required"/>
+      <xs:attribute name="jerarquia" use="required"/>
+      <xs:attribute name="categoria" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="definicio" type="xs:string"/>
+  <xs:element name="nota" type="xs:string"/>
+  <xs:element name="fitxa">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="areatematica"/>
+        <xs:element maxOccurs="unbounded" ref="denominacio"/>
+        <xs:element maxOccurs="unbounded" ref="definicio"/>
+        <xs:element maxOccurs="unbounded" ref="nota"/>
+      </xs:sequence>
+      <xs:attribute name="num" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fitxes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="fitxa"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="terminologiaoberta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="autor"/>
+        <xs:element ref="titol"/>
+        <xs:element ref="fitxes"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="autor" type="xs:string"/>
+  <xs:element name="titol" type="xs:string"/>
+</xs:schema>
