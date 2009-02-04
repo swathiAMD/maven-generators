@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:s0="urn:WS_Prueba" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:WS_Prueba">
+ <wsdl:types>
+  <xsd:schema elementFormDefault="qualified" targetNamespace="urn:WS_Prueba">
+   <xsd:element name="OpCreate" type="s0:CreateInputMap"/>
+   <xsd:complexType name="CreateInputMap">
+    <xsd:sequence>
+     <xsd:element name="Asignada_A" type="xsd:string"/>
+     <xsd:element name="Creador" type="xsd:string"/>
+     <xsd:element name="Descripcion" type="xsd:string"/>
+     <xsd:element name="Estado" type="s0:EstadoType"/>
+    </xsd:sequence>
+   </xsd:complexType>
+   <xsd:simpleType name="EstadoType">
+    <xsd:restriction base="xsd:string">
+     <xsd:enumeration value="Activo"/>
+     <xsd:enumeration value="Inactivo"/>
+    </xsd:restriction>
+   </xsd:simpleType>
+   <xsd:element name="OpCreateResponse" type="s0:CreateOutputMap"/>
+   <xsd:complexType name="CreateOutputMap">
+    <xsd:sequence>
+     <xsd:element name="Id_Ticket" type="xsd:string"/>
+    </xsd:sequence>
+   </xsd:complexType>
+   <xsd:element name="AuthenticationInfo" type="s0:AuthenticationInfo"/>
+   <xsd:complexType name="AuthenticationInfo">
+    <xsd:sequence>
+     <xsd:element name="userName" type="xsd:string"/>
+     <xsd:element name="password" type="xsd:string"/>
+     <xsd:element minOccurs="0" name="authentication" type="xsd:string"/>
+     <xsd:element minOccurs="0" name="locale" type="xsd:string"/>
+     <xsd:element minOccurs="0" name="timeZone" type="xsd:string"/>
+    </xsd:sequence>
+   </xsd:complexType>
+  </xsd:schema>
+ </wsdl:types>
+
+   <wsdl:message name="OpCreateSoapOut">
+
+      <wsdl:part element="s0:OpCreateResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="ARAuthenticate">
+
+      <wsdl:part element="s0:AuthenticationInfo" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="OpCreateSoapIn">
+
+      <wsdl:part element="s0:OpCreate" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WS_PruebaPortType">
+
+      <wsdl:operation name="OpCreate">
+
+         <wsdl:input message="s0:OpCreateSoapIn"/>
+
+         <wsdl:output message="s0:OpCreateSoapOut"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WS_PruebaSoapBinding" type="s0:WS_PruebaPortType">
+
+      <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="OpCreate">
+
+         <soap:operation soapAction="urn:WS_Prueba/OpCreate" style="document"/>
+
+         <wsdl:input>
+
+            <soap:header message="s0:ARAuthenticate" part="parameters" use="literal">
+
+            </soap:header>
+
+            <soap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output>
+
+            <soap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WS_PruebaService">
+
+      <wsdl:port binding="s0:WS_PruebaSoapBinding" name="WS_PruebaSoap">
+
+         <soap:address location="http://remedy.uji.es/arsys/services/ARService?server=remedy&amp;webService=WS_Prueba"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
